@@ -14,7 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_quests: {
+        Row: {
+          created_at: string
+          quest_date: string
+          quest_id: string
+          used_quest_ids: string[]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          quest_date: string
+          quest_id: string
+          used_quest_ids?: string[]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          quest_date?: string
+          quest_id?: string
+          used_quest_ids?: string[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_quests_quest_id_fkey"
+            columns: ["quest_id"]
+            isOneToOne: false
+            referencedRelation: "quests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partners: {
+        Row: {
+          accent: string
+          avatar_url: string | null
+          created_at: string
+          current_week_start: string | null
+          display_name: string
+          id: string
+          last_completed_date: string | null
+          lifetime_xp: number
+          slot: string
+          streak: number
+          user_id: string
+          weekly_xp: number
+        }
+        Insert: {
+          accent?: string
+          avatar_url?: string | null
+          created_at?: string
+          current_week_start?: string | null
+          display_name: string
+          id?: string
+          last_completed_date?: string | null
+          lifetime_xp?: number
+          slot: string
+          streak?: number
+          user_id: string
+          weekly_xp?: number
+        }
+        Update: {
+          accent?: string
+          avatar_url?: string | null
+          created_at?: string
+          current_week_start?: string | null
+          display_name?: string
+          id?: string
+          last_completed_date?: string | null
+          lifetime_xp?: number
+          slot?: string
+          streak?: number
+          user_id?: string
+          weekly_xp?: number
+        }
+        Relationships: []
+      }
+      quests: {
+        Row: {
+          accepts: string
+          category: string
+          id: string
+          prompt: string
+        }
+        Insert: {
+          accepts?: string
+          category: string
+          id?: string
+          prompt: string
+        }
+        Update: {
+          accepts?: string
+          category?: string
+          id?: string
+          prompt?: string
+        }
+        Relationships: []
+      }
+      submissions: {
+        Row: {
+          awarded_bonus: boolean
+          awarded_solo: boolean
+          created_at: string
+          id: string
+          media_type: string
+          media_url: string
+          quest_date: string
+          slot: string
+          user_id: string
+        }
+        Insert: {
+          awarded_bonus?: boolean
+          awarded_solo?: boolean
+          created_at?: string
+          id?: string
+          media_type: string
+          media_url: string
+          quest_date: string
+          slot: string
+          user_id: string
+        }
+        Update: {
+          awarded_bonus?: boolean
+          awarded_solo?: boolean
+          created_at?: string
+          id?: string
+          media_type?: string
+          media_url?: string
+          quest_date?: string
+          slot?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      weekly_winners: {
+        Row: {
+          a_xp: number
+          b_xp: number
+          user_id: string
+          week_start: string
+          winner_slot: string | null
+        }
+        Insert: {
+          a_xp?: number
+          b_xp?: number
+          user_id: string
+          week_start: string
+          winner_slot?: string | null
+        }
+        Update: {
+          a_xp?: number
+          b_xp?: number
+          user_id?: string
+          week_start?: string
+          winner_slot?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
