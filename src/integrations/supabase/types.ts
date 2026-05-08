@@ -46,6 +46,36 @@ export type Database = {
           },
         ]
       }
+      nudges: {
+        Row: {
+          created_at: string
+          from_slot: string
+          id: string
+          kind: string
+          payload: Json | null
+          to_slot: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          from_slot: string
+          id?: string
+          kind?: string
+          payload?: Json | null
+          to_slot: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          from_slot?: string
+          id?: string
+          kind?: string
+          payload?: Json | null
+          to_slot?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       partners: {
         Row: {
           accent: string
@@ -91,6 +121,21 @@ export type Database = {
         }
         Relationships: []
       }
+      punishments: {
+        Row: {
+          id: string
+          text: string
+        }
+        Insert: {
+          id?: string
+          text: string
+        }
+        Update: {
+          id?: string
+          text?: string
+        }
+        Relationships: []
+      }
       quests: {
         Row: {
           accepts: string
@@ -112,6 +157,84 @@ export type Database = {
         }
         Relationships: []
       }
+      reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          slot: string
+          submission_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          slot: string
+          submission_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          slot?: string
+          submission_id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      shop_items: {
+        Row: {
+          cost_xp: number
+          description: string
+          icon: string
+          id: string
+          name: string
+        }
+        Insert: {
+          cost_xp: number
+          description: string
+          icon?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          cost_xp?: number
+          description?: string
+          icon?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      shop_purchases: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          slot: string
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          slot: string
+          user_id: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          slot?: string
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
       submissions: {
         Row: {
           awarded_bonus: boolean
@@ -121,8 +244,11 @@ export type Database = {
           media_type: string
           media_url: string
           quest_date: string
+          rejection_reason: string | null
           slot: string
+          text_content: string | null
           user_id: string
+          verdict: string
         }
         Insert: {
           awarded_bonus?: boolean
@@ -132,8 +258,11 @@ export type Database = {
           media_type: string
           media_url: string
           quest_date: string
+          rejection_reason?: string | null
           slot: string
+          text_content?: string | null
           user_id: string
+          verdict?: string
         }
         Update: {
           awarded_bonus?: boolean
@@ -143,8 +272,11 @@ export type Database = {
           media_type?: string
           media_url?: string
           quest_date?: string
+          rejection_reason?: string | null
           slot?: string
+          text_content?: string | null
           user_id?: string
+          verdict?: string
         }
         Relationships: []
       }
@@ -152,6 +284,8 @@ export type Database = {
         Row: {
           a_xp: number
           b_xp: number
+          loser_accepted: boolean
+          loser_punishment_id: string | null
           user_id: string
           week_start: string
           winner_slot: string | null
@@ -159,6 +293,8 @@ export type Database = {
         Insert: {
           a_xp?: number
           b_xp?: number
+          loser_accepted?: boolean
+          loser_punishment_id?: string | null
           user_id: string
           week_start: string
           winner_slot?: string | null
@@ -166,6 +302,8 @@ export type Database = {
         Update: {
           a_xp?: number
           b_xp?: number
+          loser_accepted?: boolean
+          loser_punishment_id?: string | null
           user_id?: string
           week_start?: string
           winner_slot?: string | null
@@ -177,7 +315,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      purchase_shop_item: {
+        Args: { p_item_id: string; p_slot: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
