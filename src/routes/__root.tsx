@@ -59,7 +59,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { name: "theme-color", content: "#3D2A1A" },
-      { title: "Daily Duo — One quest a day, for the two of you" },
+      { title: "Daily Duo" },
       {
         name: "description",
         content:
@@ -71,6 +71,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "One quest a day, just for the two of you.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "Daily Duo" },
+      { name: "description", content: "Our Private Side Quest" },
+      { property: "og:description", content: "Our Private Side Quest" },
+      { name: "twitter:description", content: "Our Private Side Quest" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/m09ZDVN5OdV85JIsifxZQ1990zf1/social-images/social-1778249046894-Green_Orange_Modern_Messaging_App_Logo.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/m09ZDVN5OdV85JIsifxZQ1990zf1/social-images/social-1778249046894-Green_Orange_Modern_Messaging_App_Logo.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
