@@ -315,6 +315,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      finalize_weeks: { Args: never; Returns: undefined }
       purchase_shop_item: {
         Args: { p_item_id: string; p_slot: string }
         Returns: Json
