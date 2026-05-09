@@ -100,24 +100,16 @@ function HomePage() {
         if (upErr) throw upErr;
         mediaUrl = path;
       }
-      const { data: ins, error: insErr } = await supabase.from("submissions").insert({
+      const { error: insErr } = await supabase.from("submissions").insert({
         user_id: user.id, slot, quest_date: todayISO(),
         media_type: mediaType, media_url: mediaUrl,
         text_content: mediaType === "text" ? text : null,
-        verdict: "pending",
-      }).select("id").single();
-      if (insErr) throw insErr;
-      toast.loading("The Strict Judge is reviewing…", { id: "judge" });
-      const { data: verify, error: vErr } = await supabase.functions.invoke("verify-submission", {
-        body: { submission_id: ins.id },
+        verdict: "approved",
       });
-      toast.dismiss("judge");
-      if (vErr) throw vErr;
-      if (verify?.verdict === "approved") toast.success("Approved! +10 XP", { description: verify.reason });
-      else toast.error("Rejected — 0 XP", { description: verify?.reason ?? "Try again tomorrow." });
+      if (insErr) throw insErr;
+      toast.success("Posted! +10 XP");
       setText("");
     } catch (e) {
-      toast.dismiss("judge");
       toast.error(e instanceof Error ? e.message : "Upload failed");
     } finally { setUploading(false); }
   }
