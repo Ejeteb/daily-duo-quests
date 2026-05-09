@@ -172,7 +172,7 @@ function HomePage() {
               className="w-full rounded-full bg-primary text-primary-foreground py-4 font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2">
               {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> :
                 quest?.accepts === "image" ? <Camera className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
-              {uploading ? "Judging…" : quest?.accepts === "image" ? "Take a photo" : "Record audio"}
+              {uploading ? "Uploading…" : quest?.accepts === "image" ? "Take a photo" : "Record audio"}
             </button>
           </>
         )}
