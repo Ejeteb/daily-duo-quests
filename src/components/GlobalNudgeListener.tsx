@@ -12,21 +12,10 @@ export function GlobalNudgeListener() {
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "nudges", filter: `user_id=eq.${user.id}` },
-        (payload) => {
-          const row = payload.new as {
-            kind: string;
-            payload: { reason?: string; slot?: string } | null;
-            from_slot: string;
-          };
-          if (row.kind === "rejection") {
-            toast.error("The Strict Judge rejected an upload", {
-              description: row.payload?.reason ?? "Try again — it didn't match the quest.",
-            });
-          } else {
-            toast("💌 Nudge!", {
-              description: `Don't forget today's quest!`,
-            });
-          }
+        () => {
+          toast("💌 Nudge!", {
+            description: `Don't forget today's quest!`,
+          });
         },
       )
       .subscribe();
