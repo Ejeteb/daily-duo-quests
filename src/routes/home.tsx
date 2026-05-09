@@ -100,24 +100,16 @@ function HomePage() {
         if (upErr) throw upErr;
         mediaUrl = path;
       }
-      const { data: ins, error: insErr } = await supabase.from("submissions").insert({
+      const { error: insErr } = await supabase.from("submissions").insert({
         user_id: user.id, slot, quest_date: todayISO(),
         media_type: mediaType, media_url: mediaUrl,
         text_content: mediaType === "text" ? text : null,
-        verdict: "pending",
-      }).select("id").single();
-      if (insErr) throw insErr;
-      toast.loading("The Strict Judge is reviewing…", { id: "judge" });
-      const { data: verify, error: vErr } = await supabase.functions.invoke("verify-submission", {
-        body: { submission_id: ins.id },
+        verdict: "approved",
       });
-      toast.dismiss("judge");
-      if (vErr) throw vErr;
-      if (verify?.verdict === "approved") toast.success("Approved! +10 XP", { description: verify.reason });
-      else toast.error("Rejected — 0 XP", { description: verify?.reason ?? "Try again tomorrow." });
+      if (insErr) throw insErr;
+      toast.success("Posted! +10 XP");
       setText("");
     } catch (e) {
-      toast.dismiss("judge");
       toast.error(e instanceof Error ? e.message : "Upload failed");
     } finally { setUploading(false); }
   }
@@ -180,7 +172,7 @@ function HomePage() {
               className="w-full rounded-full bg-primary text-primary-foreground py-4 font-medium disabled:opacity-50 inline-flex items-center justify-center gap-2">
               {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> :
                 quest?.accepts === "image" ? <Camera className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
-              {uploading ? "Judging…" : quest?.accepts === "image" ? "Take a photo" : "Record audio"}
+              {uploading ? "Uploading…" : quest?.accepts === "image" ? "Take a photo" : "Record audio"}
             </button>
           </>
         )}
@@ -195,7 +187,7 @@ function HomePage() {
           <div key={b.label} className="rounded-2xl bg-card border border-border p-4 text-center">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">{b.label}</p>
             <p className="mt-2 font-display text-lg">
-              {b.sub?.verdict === "approved" ? "✓ Done" : b.sub?.verdict === "pending" ? "Judging…" : "Waiting"}
+              {b.sub?.verdict === "approved" ? "✓ Done" : "Waiting"}
             </p>
           </div>
         ))}
