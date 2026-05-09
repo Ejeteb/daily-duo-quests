@@ -187,7 +187,7 @@ function HomePage() {
           <div key={b.label} className="rounded-2xl bg-card border border-border p-4 text-center">
             <p className="text-xs uppercase tracking-wider text-muted-foreground">{b.label}</p>
             <p className="mt-2 font-display text-lg">
-              {b.sub?.verdict === "approved" ? "✓ Done" : b.sub?.verdict === "pending" ? "Judging…" : "Waiting"}
+              {b.sub?.verdict === "approved" ? "✓ Done" : "Waiting"}
             </p>
           </div>
         ))}
